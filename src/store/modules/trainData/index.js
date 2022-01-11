@@ -1,3 +1,8 @@
+const requestSettings = {
+    method: "GET",
+    headers: { "Content-Type": "application/json" },
+}
+
 export default {
     namespaced: true,
     state() {
@@ -24,7 +29,7 @@ export default {
     actions: {
         async fetchTrains(context, payload) {
             const response = await fetch(
-                'https://rata.digitraffic.fi/api/v1/live-trains/station/' + payload + '?arrived_trains=0&arriving_trains=0&departed_trains=0&departing_trains=20&include_nonstopping=false'
+                'https://rata.digitraffic.fi/api/v1/live-trains/station/' + payload + '?arrived_trains=0&arriving_trains=0&departed_trains=0&departing_trains=20&include_nonstopping=false', requestSettings
             );
             const responseData = await response.json();
 
@@ -60,8 +65,9 @@ export default {
 
         },
         async getAllStations(context) {
+
             const response = await fetch(
-                'https://rata.digitraffic.fi/api/v1/metadata/stations'
+                'https://rata.digitraffic.fi/api/v1/metadata/stations', requestSettings
             );
             const responseData = await response.json();
             if (!response.ok) {
